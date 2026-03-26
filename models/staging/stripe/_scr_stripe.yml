@@ -1,3 +1,5 @@
+version: 2
+
 sources:
   - name: stripe
     database: raw
@@ -5,3 +7,11 @@ sources:
     tables:
       - name: payments
         identifier: payment
+        config:
+          freshness:
+            warn_after:
+              count: 14
+              period: day
+            error_after:
+              count: 28
+              period: day
