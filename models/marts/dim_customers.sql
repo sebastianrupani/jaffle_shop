@@ -34,7 +34,7 @@ customer_orders as (
 
 customer_payments AS (
     SELECT customer_id,
-           COALESCE(SUM(payment_amount), 0) AS lifetime_value
+           COALESCE(SUM(CASE WHEN payment_status = 'Success' THEN payment_amount ELSE 0 END), 0) AS lifetime_value
 
     FROM orders AS o 
     LEFT JOIN payments AS p ON o.order_id = p.order_id
