@@ -6,4 +6,4 @@ SELECT
     amount AS payment_amount,
     created AS payment_date
 
-FROM raw.stripe.payment
+FROM {{ source('stripe', 'payments') }}
