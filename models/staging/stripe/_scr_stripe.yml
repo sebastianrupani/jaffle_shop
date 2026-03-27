@@ -7,6 +7,7 @@ sources:
     tables:
       - name: payments
         identifier: payment
+        description: "{{ doc('payments')}}"
         config:
           freshness:
             warn_after:
