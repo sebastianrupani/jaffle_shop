@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: stripe
+    database: raw
+    schema: stripe
+    tables:
+      - name: payments
+        identifier: payment
+        description: "{{ doc('payments')}}"
+        config:
+          freshness:
+            warn_after:
+              count: 14
+              period: day
+            error_after:
+              count: 28
+              period: day
