@@ -9,7 +9,7 @@ pivoted AS (
     {% set payment_methods = ['credit_card', 'coupon', 'bank_transfer', 'gift_card'] %}
     {%- for payment_method in payment_methods -%}
 
-        SUM(CASE WHEN payment_method = '{{ payment_method }}' THEN payment_amount ELSE 0 END) AS {{ payment_method}}_amount 
+        SUM(CASE WHEN payment_method = '{{ payment_method }}' THEN {{ cent_to_dollars("payment_amount") }} ELSE 0 END) AS {{ payment_method }}_amount 
 
         {%- if not loop.last -%}
             , 

@@ -3,7 +3,7 @@ SELECT
     orderid AS order_id,
     paymentmethod AS payment_method,
     INITCAP(status) AS payment_status,
-    amount / 100 AS payment_amount,
+    amount AS payment_amount,
     created AS payment_date
 
 FROM {{ source('stripe', 'payments') }}
