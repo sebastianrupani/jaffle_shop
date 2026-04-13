@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='order_id',
+        incremental_strategy='merge'
+    )
+}}
+
 with customers as (
     select *
     from {{ ref('stg_jaffle_shop__customers') }}    
@@ -11,15 +19,24 @@ orders as (
 payments as (
     select *
     from {{ ref('stg_stripe__payments') }} 
+),
+
+final as (
+    select o.order_id,
+        c.customer_id,
+        o.order_date, 
+        coalesce(sum(p.payment_amount), 0) as amount 
+
+    from customers as c
+    join orders as o on c.customer_id = o.customer_id
+    join payments as p on o.order_id = p.order_id
+
+    group by 1, 2, 3
+    order by 2, 1, 3
 )
 
-SELECT o.order_id,
-       c.customer_id,
-       COALESCE(SUM(p.payment_amount), 0) AS amount 
-
-FROM customers AS c
-JOIN orders AS o ON c.customer_id = o.customer_id
-JOIN payments AS p ON o.order_id = p.order_id
-
-GROUP BY 1, 2
-ORDER BY 2, 1
+select * from final
+{% if is_incremental() %}
+    -- this filter will only be applied on an incremental run
+    where order_date > (select max(order_date) from {{ this }}) 
+{% endif %}
