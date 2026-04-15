@@ -3,9 +3,12 @@ models:
     config: 
       contract: 
         enforced: true
+      group: finance
+      access: protected
+    latest_version: 1
     columns:
       - name: order_id
-        data_type: varchar
+        data_type: number
         constraints:
           - type: not_null
       - name: customer_id
@@ -14,3 +17,15 @@ models:
         data_type: date
       - name: amount
         data_type: number
+    versions:
+      - v: 1
+        config: 
+          alias: fct_orders
+      - v: 2
+        columns:
+          - include: all
+            exclude: [order_date, amount]
+          - name: location_ordered_at
+            data_type: date
+          - name: order_amount
+            data_type: number
