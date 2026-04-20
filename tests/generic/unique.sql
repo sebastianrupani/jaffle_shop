@@ -6,7 +6,7 @@ from (
        {{ column_name }}
 
    from {{ model }}
-   where {{ column_name }} is not null and {{ column_name }} != '00000'
+   where {{ column_name }} is not null and {{ column_name }} not in (00000, 1111)
    group by {{ column_name }}
    having count(*) > 1
 

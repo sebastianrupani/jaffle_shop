@@ -7,3 +7,6 @@ packages:
     
   - package: tnightengale/dbt_meta_testing
     version: 0.4.0
+
+  - package: metaplane/dbt_expectations
+    version: 0.10.10
