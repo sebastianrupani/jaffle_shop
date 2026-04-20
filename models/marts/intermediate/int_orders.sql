@@ -38,8 +38,6 @@ paid_orders as (
   from orders
   left join completed_payments 
          on orders.order_id = completed_payments.order_id
-  left join customers  
-         on orders.customer_id = customers.customer_id
 
 )
 

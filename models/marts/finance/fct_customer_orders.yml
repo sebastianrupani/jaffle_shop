@@ -4,10 +4,6 @@ models:
       contract: 
         enforced: true
     columns:
-      - name: order_id
-        data_type: number
-      - name: customer_id
-        data_type: number
       - name: order_date
         data_type: date
       - name: order_status
@@ -27,10 +23,12 @@ models:
       - name: first_order_date
         data_type: date
       - name: order_id
+        data_type: number
         tests:
           - unique
           - not_null
       - name: customer_id
+        data_type: number
         tests:
           - relationships:
               arguments:
