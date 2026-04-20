@@ -1,5 +1,10 @@
 {{ config(
-    materialized='table'
+    materialized='table',
+    meta= {'required_tests': {
+             'unique': 1,
+             'not_null': 1
+      }
+    }
 ) }}
 
 {{ dbt_utils.date_spine(

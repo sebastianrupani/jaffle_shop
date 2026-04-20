@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: all_dates
+    columns:
+      - name: date_day
+        tests:
+          - unique
+          - not_null

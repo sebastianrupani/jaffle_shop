@@ -11,7 +11,15 @@ models:
         data_type: number
         constraints:
           - type: not_null
+        tests:
+          - unique
+          - not_null
       - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
         data_type: number
       - name: order_date
         data_type: date

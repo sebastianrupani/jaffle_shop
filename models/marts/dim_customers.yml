@@ -6,6 +6,13 @@ models:
     columns:
       - name: customer_id
         data_type: number
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_jaffle_shop__customers')
+                field: customer_id
       - name: first_name
         data_type: varchar
       - name: last_name
